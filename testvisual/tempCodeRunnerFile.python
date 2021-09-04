@@ -1,0 +1,5 @@
+x=[1,0]
+y=""
+for i in input():
+    y+=x[int(i)]
+    print(y)

@@ -4,13 +4,11 @@
 #define o1 8
 #define o2 7
 #define o3 6
-
 int a, b, c;
 long timea = 0, timeb = 0, timec = 0;
 bool prea = 0, preb = 0, prec = 0;
 long timex;
 void setup() {
-  Serial.begin(9600);
   pinMode(s1, INPUT);
   pinMode(s2, INPUT);
   pinMode(s3, INPUT_PULLUP);
@@ -27,30 +25,23 @@ void loop()
     prea = !prea;
     digitalWrite(o1, prea);
     timea = millis();
-    //Serial.println("A");
   }
   else if (a == 1)
   {
     timea = millis();
-    //Serial.println("B");
   }
   else if (prea == 1 && millis() > timea + 3000)
   {
     prea = 0;
     digitalWrite(o1, 0);
-    //Serial.println("C");
   }
-
-
   b = digitalRead(s2);
   if (prea == 1 || prec == 1)
   {
-    Serial.println(timeb);
     if (preb == 1 && millis() > timeb + 2000)
     {
       preb = 0;
       digitalWrite(o2, 0);
-      //Serial.println("F");
     }
     else if (preb == 1)
     {
@@ -69,12 +60,10 @@ void loop()
     preb = 1;
     digitalWrite(o2, 0);
     timeb = millis();
-    //Serial.println("D");
     timex = millis();
   }
   else if (b == 0)
   {
-    Serial.println("B");
     if ((millis() - timex) % 1000 > 500)
     {
       digitalWrite(o2, 1);
@@ -84,17 +73,14 @@ void loop()
       digitalWrite(o2, 0);
     }
     timeb = millis();
-    //Serial.println("E");
   }
   else if (preb == 1 && millis() > timeb + 2000)
   {
     preb = 0;
     digitalWrite(o2, 0);
-    //Serial.println("F");
   }
   else if (preb == 1)
   {
-    //Serial.println("A");
     if ((millis() - timex) % 1000 > 500)
     {
       digitalWrite(o2, 1);
@@ -104,9 +90,6 @@ void loop()
       digitalWrite(o2, 0);
     }
   }
-
-
-
   c = digitalRead(s3);
   if (prea == 1)
   {
@@ -114,7 +97,6 @@ void loop()
     {
       prec = 0;
       digitalWrite(o3, 0);
-      //Serial.println("I");
     }
   }
   else if (c == 0 && millis() > timec + 50)
@@ -122,18 +104,14 @@ void loop()
     prec = !prec;
     digitalWrite(o3, prec);
     timec = millis();
-    //Serial.println("G");
   }
   else if (c == 0)
   {
     timec = millis();
-    //Serial.println("H");
   }
   else if (prec == 1 && millis() > timec + 3000)
   {
     prec = 0;
     digitalWrite(o3, 0);
-    //Serial.println("I");
   }
-
 }
