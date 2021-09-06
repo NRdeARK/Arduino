@@ -15,15 +15,16 @@ void setup() {
   pinMode(sw1, INPUT_PULLUP);
   pinMode(sw2, INPUT_PULLUP);
   DDRD = 0xFF;
+  randomSeed(1);
 }
 void loop()
 {
   if (regame)
   {
-    randNum = millis() % 10;
+    randNum = random(1,10);
     regame = false;
   }
-  count = 1;
+  count = 0;
 
   while (true)
   {
@@ -36,21 +37,21 @@ void loop()
     {timea=millis();}
     if (checkA==true)
     {
-      count=(count+1)%10;
+      count=(count+1)%9;
       checkA = false;
     }
     if (b == 0 && millis() > timeb + 50)break;
-    PORTD = ~num[count];
+    PORTD = ~num[count+1];
   }
-  if (count > randNum)
+  if (count+1 > randNum)
   {
     PORTD = ~num[11];
   }
-  if (count < randNum)
+  if (count+1 < randNum)
   {
     PORTD = ~num[10];
   }
-  if (count = randNum)
+  if (count+1 == randNum)
   {
     PORTD = ~num[0];
     regame = true;
